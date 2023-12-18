@@ -2,9 +2,17 @@ const contacts = require("../models/contacts");
 const { ctrlWrapper } = require("../helpers");
 const HttpError = require("../models/HttpError");
 
-const getAll = async (_, res) => {
-  const result = await contacts.getAll();
-  res.status(200).json(result);
+const getAll = async (req, res) => {
+  const { limit = 20, page = 1, favorite } = req.query;
+  const config = {
+    limit: +limit,
+    page: +page,
+  };
+  if (favorite) config.favorite = Boolean(parseInt(favorite));
+  const { contactList, count } = await contacts.getAll(config);
+  res
+    .status(200)
+    .json({ contactList, count, limit: parseInt(limit), page: parseInt(page) });
 };
 
 const getById = async (req, res) => {

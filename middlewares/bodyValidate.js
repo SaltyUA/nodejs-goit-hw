@@ -6,9 +6,9 @@ const bodyValidate = (schema) => {
     if (error) {
       const [details] = error.details;
       if (details.type === "any.required") {
-        throw new HttpError(400, `missing field ${details.context.key}`);
+        return next(new HttpError(400, `missing field ${details.context.key}`));
       }
-      next(new HttpError(400, details.message));
+      return next(new HttpError(400, details.message));
     }
     next();
   };
