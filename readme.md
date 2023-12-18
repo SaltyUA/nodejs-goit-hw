@@ -1,11 +1,11 @@
-## Node.js GoIT Course's Homework
+# Node.js GoIT Course's Homework
 
-### #2 Express. Local RestAPI
+## #2 Express. Local RestAPI
 
-- Add routes(GET(all and byId), POST, DELETE, PUT)
-- Validate body(used Joi)
+- Add routes(GET(all and byId), POST, DELETE, PUT).
+- Validate body(used Joi).
 
-### #3 MongoDB
+## #3 MongoDB
 
 - Create and setup MongoDB Atlas.
 - Setup MongoDB Compass and using for create new collection.
@@ -14,7 +14,20 @@
 - Rewrite CRUD-operations to Mongoose-methods.
 - Add new method for PATCH "favorite" field.
 
-### Команди:
+## #4 Authoritation
+
+- Setup User schemas and models.
+- Create authorization routes(register, login, logout, current).
+- Creating token with jwt.
+- Hashing password for DB with bcrypt.
+
+  ### Extra
+
+- Added pagination for get request.
+- Added filter by 'favorite'.
+- Patching user subscription.
+
+## Команди
 
 - `npm start` &mdash; старт сервера в режимі production
 - `npm run start:dev` &mdash; старт сервера в режимі розробки (development)
