@@ -1,10 +1,16 @@
-const { ctrlWrapper } = require("../helpers");
-const auth = require("../models/auth");
-const users = require("../models/users");
+const { ctrlWrapper } = require('../helpers');
+const auth = require('../models/auth');
+const users = require('../models/users');
 
 const login = async (req, res) => {
-  const user = await auth.login(req.body);
-  res.status(200).json(user);
+  const { user, token } = await auth.login(req.body);
+  res.status(200).json({
+    token,
+    user: {
+      email: user.email,
+      subscription: user.subscription,
+    },
+  });
 };
 
 const register = async (req, res) => {
@@ -30,7 +36,24 @@ const patchSubscription = async (req, res) => {
   const result = await users.patchSubscription({ _id, subscription });
   res
     .status(200)
-    .json({ message: "Subscription succesfully updated", data: result });
+    .json({ message: 'Subscription succesfully updated', data: result });
+};
+
+const updateAvatar = async (req, res) => {
+  if (!req.file) {
+    res.status(400).json({ message: 'No file uploaded' });
+  }
+  console.log(req);
+  const { _id } = req.user;
+  const { path, originalname } = req.file;
+  const result = await users.patchAvatar({
+    _id,
+    tempUpload: path,
+    originalname,
+  });
+  res.status(200).json({
+    result,
+  });
 };
 
 module.exports = {
@@ -39,4 +62,5 @@ module.exports = {
   logout: ctrlWrapper(logout),
   currentUser: ctrlWrapper(currentUser),
   patchSubscription: ctrlWrapper(patchSubscription),
+  updateAvatar: ctrlWrapper(updateAvatar),
 };
