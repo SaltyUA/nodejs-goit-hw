@@ -56,6 +56,18 @@ const updateAvatar = async (req, res) => {
   });
 };
 
+const verifyEmail = async (req, res) => {
+  const { verificationToken } = req.params;
+  await auth.verifyEmail(verificationToken);
+  res.status(200).json({ message: 'Verification successful' });
+};
+
+const resendVerifyEmail = async (req, res) => {
+  const { email } = req.body;
+  await auth.resendVerifyEmail(email);
+  res.status(200).json({ message: 'Verification email sent' });
+};
+
 module.exports = {
   login: ctrlWrapper(login),
   register: ctrlWrapper(register),
@@ -63,4 +75,6 @@ module.exports = {
   currentUser: ctrlWrapper(currentUser),
   patchSubscription: ctrlWrapper(patchSubscription),
   updateAvatar: ctrlWrapper(updateAvatar),
+  verifyEmail: ctrlWrapper(verifyEmail),
+  resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
 };
