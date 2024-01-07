@@ -1,17 +1,10 @@
 const mongoose = require("mongoose");
 
-const {
-  DB_MONGO_HOST,
-  DB_MONGO_USER,
-  DB_MONGO_PASSWORD,
-  DB_MONGO_DATABASE,
-} = require("../helpers/env");
+const { DB_MONGO_HOST } = require("../helpers/env");
 
 const setupMongoConnection = async () => {
   try {
-    await mongoose.connect(
-      `mongodb+srv://${DB_MONGO_USER}:${DB_MONGO_PASSWORD}@${DB_MONGO_HOST}/${DB_MONGO_DATABASE}`
-    );
+    await mongoose.connect(DB_MONGO_HOST);
     console.log("Database connection successful.");
   } catch (err) {
     console.log(err);

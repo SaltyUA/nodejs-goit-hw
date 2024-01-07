@@ -18,6 +18,10 @@ const UserSchema = new Schema(
       enum: ["starter", "pro", "business"],
       default: "starter",
     },
+    avatarURL: {
+      type: String,
+      required: [true, "missing avatar"],
+    },
     token: String,
   },
   { versionKey: false }
