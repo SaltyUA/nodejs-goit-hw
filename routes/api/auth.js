@@ -10,7 +10,15 @@ router.post('/login', bodyValidate(schemas.userSchema), authCtrl.login);
 
 router.post('/logout', tokenValidation, authCtrl.logout);
 
+router.post(
+  '/verify',
+  bodyValidate(schemas.emailSchema),
+  authCtrl.resendVerifyEmail
+);
+
 router.get('/current', tokenValidation, authCtrl.currentUser);
+
+router.get('/verify/:verificationToken', authCtrl.verifyEmail);
 
 router.patch(
   '/',
